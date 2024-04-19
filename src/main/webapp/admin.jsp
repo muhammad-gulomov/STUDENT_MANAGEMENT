@@ -19,8 +19,8 @@
     <button type="submit">Student CRUD</button>
 </form>
 
-<form action="">
-    <button type="submit">Admin CRUD</button>
+<form action="groupcrud.jsp">
+    <button type="submit">Group CRUD</button>
 </form>
 </body>
 </html>
