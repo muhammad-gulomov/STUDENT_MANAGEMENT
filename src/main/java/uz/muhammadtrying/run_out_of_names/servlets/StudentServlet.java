@@ -40,6 +40,6 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
+        resp.sendRedirect(req.getParameter("http://localhost:8080/studentcrud.jsp"));
     }
 }

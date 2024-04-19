@@ -10,7 +10,6 @@ public class BaseRepo<T, I> {
 
     public Class<T> persistenceClass;
 
-    @SuppressWarnings("unchecked")
     public BaseRepo() {
         Type type = getClass().getGenericSuperclass();
         ParameterizedType paramType = (ParameterizedType) type;
