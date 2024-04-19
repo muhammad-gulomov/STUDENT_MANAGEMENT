@@ -20,8 +20,7 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        List<Student> all = studentRepo.findAll();
-        System.out.println(all);
+
     }
 
     @Override

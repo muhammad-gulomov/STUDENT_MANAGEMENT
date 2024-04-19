@@ -19,15 +19,18 @@ public class SearchServlet extends HttpServlet {
     StudentRepo studentRepo = new StudentRepo();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String search = req.getParameter("search");
 
         List<Student> students = studentRepo.findAll();
 
-        List<Student> searchedStudents = students.stream().filter(item -> item.getFirstName().contains(search) || item.getLastName().contains(search)).toList();
+        List<Student> searchedStudents = students.stream()
+                .filter(item -> item.getFirstName().toLowerCase().contains(search.toLowerCase()) || item.getLastName()
+                        .contains(search)).toList();
 
         HttpSession session = req.getSession();
         session.setAttribute("students",searchedStudents);
+        session.setAttribute("search",search);
         resp.sendRedirect("/");
     }
 }
