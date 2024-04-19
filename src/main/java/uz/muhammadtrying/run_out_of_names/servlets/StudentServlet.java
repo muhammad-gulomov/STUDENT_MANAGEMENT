@@ -23,8 +23,30 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Integer studentId = Integer.parseInt(req.getParameter("studentId"));
+        studentRepo.deleteById(studentId);
+        resp.sendRedirect("http://localhost:8080/student_delete.jsp");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String cameFrom = req.getParameter("cameFrom");
-        if (cameFrom.equals("/index.jsp")) {
+        GroupRepo groupRepo = new GroupRepo();
+        StudentRepo studentRepo = new StudentRepo();
+        if (cameFrom.equals("http://localhost:8080/student_create.jsp")) {
+            String firstName = req.getParameter("firstName");
+            String lastName = req.getParameter("lastName");
+            Integer companyId = Integer.valueOf(req.getParameter("groupId"));
+
+            Student student = Student.builder()
+                    .firstName(firstName)
+                    .lastName(lastName)
+                    .build();
+            Group group = groupRepo.findById(companyId);
+            student.setGroup(group);
+            studentRepo.save(student);
+            resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
+        } else if (cameFrom.equals("/index.jsp")) {
             String search = req.getParameter("search");
 
             List<Student> students = studentRepo.findAll();
@@ -36,26 +58,18 @@ public class StudentServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("students", searchedStudents);
             session.setAttribute("search", search);
+            resp.sendRedirect(cameFrom);
+        } else if (cameFrom.equals("/student_update.jsp")) {
+            Integer studentId = Integer.parseInt(req.getParameter("studentId"));
+            String firstName = req.getParameter("firstName");
+            String lastName = req.getParameter("lastName");
+            Integer groupId = Integer.valueOf(req.getParameter("groupId"));
+            Student student = studentRepo.findById(studentId);
+            student.setFirstName(firstName);
+            student.setLastName(lastName);
+            Group group = groupRepo.findById(groupId);
+            student.setGroup(group);
+            resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
         }
-        resp.sendRedirect(cameFrom);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        GroupRepo groupRepo = new GroupRepo();
-        StudentRepo studentRepo = new StudentRepo();
-
-        String firstName = req.getParameter("firstName");
-        String lastName = req.getParameter("lastName");
-        Integer companyId = Integer.valueOf(req.getParameter("groupId"));
-
-        Student student = Student.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .build();
-        Group group = groupRepo.findById(companyId);
-        student.setGroup(group);
-        studentRepo.save(student);
-        resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
     }
 }

@@ -10,7 +10,6 @@
         .main-content {
             padding-top: 20px;
         }
-
     </style>
 </head>
 <body>
@@ -21,11 +20,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-10 main-content">
-            <h1>Student</h1>
-            <div style="font-size: larger"><a href="http://localhost:8080/admin.jsp">HOMEPAGE</a>
-                <a class="offset-1" style="font-size: large" href="student_create.jsp">Create</a>
-                <a class="offset-1" style="font-size: large" href="student_delete.jsp">Delete</a>
-            </div>
+            <h1>Delete</h1>
+            <div style="font-size: larger"><a href="http://localhost:8080/studentcrud.jsp">HOMEPAGE</a></div>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -37,24 +33,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <%
-                    for (Student student : students) {%>
+                <% for (Student student : students) { %>
                 <tr>
-                    <td><%=student.getId()%>
-                    </td>
+                    <td><%= student.getId() %></td>
+                    <td><%= student.getFirstName() %></td>
+                    <td><%= student.getLastName() %></td>
+                    <td><%= student.getGroup().getName() %></td>
                     <td>
-                        <%=student.getFirstName()%>
-                    </td>
-                    <td>
-                        <%=student.getLastName()%>
-                    </td>
-                    <td>
-                        <%=student.getGroup().getName()%>
-                    </td>
-                    <td>
-                        <a href="student_update.jsp?studentId=<%=student.getId()%>">
-                            Update🔄
-                        </a>
+                        <form action="student/servlet" method="get">
+                            <input type="hidden" name="studentId" value="<%= student.getId() %>">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 <% } %>

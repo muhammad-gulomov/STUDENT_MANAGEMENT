@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Creating user</title>
+    <title>Creating Student</title>
     <link rel="stylesheet" href="static/bootstrap.min.css">
 </head>
 <body>
@@ -21,6 +21,7 @@
 <div class="container">
     <h1 class="mt-4">Create User</h1>
     <form action="student/servlet" method="post">
+        <input name="cameFrom" type="hidden" value="http://localhost:8080/student_create.jsp">
         <div class="form-group">
             <label for="firstName">First Name:</label>
             <input type="text" class="form-control" id="firstName" name="firstName">

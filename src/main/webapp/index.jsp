@@ -86,7 +86,7 @@
     <% } %>
 
 
-    <form action="student/servlet" class="form-inline mt-3" method="get">
+    <form action="student/servlet" class="form-inline mt-3" method="post">
         <div class="form-group">
             <label for="searchInput" class="mr-2">Search:</label>
             <input type="hidden" name="cameFrom" value="/index.jsp">
@@ -101,7 +101,6 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Username</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Group</th>
@@ -110,8 +109,6 @@
             <tbody>
             <% for (Student student : students) { %>
             <tr>
-                <td><%= student.getUserName() %>
-                </td>
                 <td><%= student.getFirstName() %>
                 </td>
 
