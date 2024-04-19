@@ -26,6 +26,10 @@ public class BaseRepo<T, I> {
         commit();
     }
 
+    public T findById(I id) {
+        return entityManager.find(persistenceClass, id);
+    }
+
     public void save(T t) {
         begin();
         entityManager.persist(t);

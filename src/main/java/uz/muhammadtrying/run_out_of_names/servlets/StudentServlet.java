@@ -6,7 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import uz.muhammadtrying.run_out_of_names.entity.Group;
 import uz.muhammadtrying.run_out_of_names.entity.Student;
+import uz.muhammadtrying.run_out_of_names.repos.GroupRepo;
 import uz.muhammadtrying.run_out_of_names.repos.StudentRepo;
 
 import java.io.IOException;
@@ -40,6 +42,20 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect(req.getParameter("http://localhost:8080/studentcrud.jsp"));
+        GroupRepo groupRepo = new GroupRepo();
+        StudentRepo studentRepo = new StudentRepo();
+
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        Integer companyId = Integer.valueOf(req.getParameter("groupId"));
+
+        Student student = Student.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .build();
+        Group group = groupRepo.findById(companyId);
+        student.setGroup(group);
+        studentRepo.save(student);
+        resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
     }
 }

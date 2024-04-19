@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
             <label for="group">Group:</label>
-            <select class="form-control" id="group" name="group">
+            <select class="form-control" id="group" name="groupId">
                 <option disabled selected>Choose group</option>
                 <%
                     for (Group group : groups) {%>

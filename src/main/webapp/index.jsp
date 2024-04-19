@@ -68,7 +68,7 @@
         </button>
         <div class="dropdown-content">
             <a href="log/out">Log Out</a>
-            <a href="">Admin Panel</a>
+            <a href="admin.jsp">Admin Panel</a>
         </div>
     </div>
     <% } else { %>
