@@ -7,9 +7,6 @@ import java.util.Optional;
 public class StudentRepo extends BaseRepo<Student, Integer> {
 
     public Optional<Student> findByUsername(String username) {
-
-        return findAll().stream().filter(item -> {
-            return item.getUserName().equals(username);
-        }).findFirst();
+        return findAll().stream().filter(item -> item.getUserName().equals(username)).findFirst();
     }
 }

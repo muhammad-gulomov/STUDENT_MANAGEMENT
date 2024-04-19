@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Log in</title>
     <link rel="stylesheet" href="static/bootstrap.min.css">
 </head>
 <body>
@@ -20,17 +20,18 @@
                 Log in
             </div>
             <div class="card-body">
-                <form action="#" method="post">
+                <form action="auth/login" method="get">
+                    <input type="hidden" value="/login.jsp">
                     <div>
-                        <input type="text" name="username" placeholder="User name..." class="form-control mt-2">
+                        <input type="text" name="username" placeholder="Username..." class="form-control mt-2">
                     </div>
 
                     <div>
-                        <input type="password" name="password" placeholder="password..." class="form-control mt-2">
+                        <input type="password" name="password" placeholder="Password..." class="form-control mt-2">
                     </div>
                     <div>
                         <label class="form-check-label mt-2">
-                            <input type="checkbox" name="rememberMe" class="form-check"> Remember me
+                            <input type="checkbox" name="rememberMe" class="form-check"> Remember Me
                         </label>
                     </div>
                     <br>
@@ -43,6 +44,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

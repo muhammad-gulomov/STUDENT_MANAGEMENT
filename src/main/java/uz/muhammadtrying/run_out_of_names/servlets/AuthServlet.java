@@ -1,11 +1,7 @@
 package uz.muhammadtrying.run_out_of_names.servlets;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import uz.muhammadtrying.run_out_of_names.entity.Student;
 import uz.muhammadtrying.run_out_of_names.repos.StudentRepo;
 
@@ -15,22 +11,9 @@ import java.util.Optional;
 @WebServlet(name = "auth", value = "/auth/login")
 public class AuthServlet extends HttpServlet {
     StudentRepo studentRepo = new StudentRepo();
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String rememberMe = req.getParameter("rememberMe");
-
-        Optional<Student> optionalStudent = studentRepo.findByUsername(username);
-        if (optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            if (student.getPassword().equals(password)) {
-                HttpSession session = req.getSession();
-                session.setAttribute("currentUser",student);
-            }
-        }
-
-
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
     }
 }
