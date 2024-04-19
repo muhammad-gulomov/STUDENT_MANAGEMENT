@@ -21,7 +21,6 @@ public class StudentRepo extends BaseRepo<Student, Integer> {
             return Optional.empty();
         }
         for (Cookie cookie : request.getCookies()) {
-
             if (cookie.getName().equals("currentUser")) {
                 return findById(Integer.parseInt(cookie.getValue()));
             }
