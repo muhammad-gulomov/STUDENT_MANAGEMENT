@@ -22,7 +22,7 @@
 <div class="container">
     <h1>Homepage</h1>
 
-    <form action="" class="float-right">
+    <form action="/index.jsp" class="float-right">
         <button type="submit" class="btn btn-primary">Log In</button>
     </form>
 
