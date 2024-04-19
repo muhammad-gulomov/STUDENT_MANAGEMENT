@@ -22,13 +22,14 @@
 <div class="container">
     <h1>Homepage</h1>
 
-    <form action="/index.jsp" class="float-right">
+    <form action="login.jsp" class="float-right">
         <button type="submit" class="btn btn-primary">Log In</button>
     </form>
 
-    <form action="student/search" class="form-inline mt-3" method="get">
+    <form action="student/servlet" class="form-inline mt-3" method="get">
         <div class="form-group">
             <label for="searchInput" class="mr-2">Search:</label>
+            <input type="hidden" name="cameFrom" value="/index.jsp">
             <input <%if(objectSearch!=null) %>value="<%=(String)objectSearch%>" <% %> type="text" id="searchInput"
                    name="search" class="form-control mr-2">
         </div>
