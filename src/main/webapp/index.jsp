@@ -42,14 +42,25 @@
 
     Object objectStudents = session.getAttribute("students");
     Object objectSearch = session.getAttribute("search");
-    Object currentUserObject = session.getAttribute("currentUser");
-    Optional<Student> studentOptional = studentRepo.getUserByCookie(request);
-
 
     List<Student> students = new ArrayList<>();
     if (objectStudents != null) {
         students = (List<Student>) objectStudents;
     }
+
+    Student currentUser = null;
+
+    Object obj = session.getAttribute("currentUser");
+    if (obj != null) {
+        currentUser = (Student) obj;
+    }
+
+
+    Optional<Student> optionalUser = studentRepo.getUserByCookie(request);
+    if (optionalUser.isPresent()) {
+        currentUser = optionalUser.get();
+    }
+
 %>
 
 
@@ -57,10 +68,7 @@
     <h1>Homepage</h1>
 
     <%
-
-        if ( studentOptional.isPresent()) {
-//            Student currentUser = (Student) currentUserObject;
-            Student currentUser = studentOptional.get();
+        if (currentUser!=null) {
     %>
     <div class="dropdown float-right">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
