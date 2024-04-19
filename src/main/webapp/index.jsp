@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="java.util.Optional" %>
+<%@ page import="uz.muhammadtrying.run_out_of_names.repos.StudentRepo" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -37,9 +38,13 @@
 </head>
 <body>
 <%
+    StudentRepo studentRepo = new StudentRepo();
+
     Object objectStudents = session.getAttribute("students");
     Object objectSearch = session.getAttribute("search");
     Object currentUserObject = session.getAttribute("currentUser");
+    Optional<Student> studentOptional = studentRepo.getUserByCookie(request);
+
 
     List<Student> students = new ArrayList<>();
     if (objectStudents != null) {
@@ -47,12 +52,15 @@
     }
 %>
 
+
 <div class="container">
     <h1>Homepage</h1>
 
     <%
-        if () {
 
+        if ( studentOptional.isPresent()) {
+//            Student currentUser = (Student) currentUserObject;
+            Student currentUser = studentOptional.get();
     %>
     <div class="dropdown float-right">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -85,6 +93,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <th>Username</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Group</th>
@@ -93,8 +102,11 @@
             <tbody>
             <% for (Student student : students) { %>
             <tr>
+                <td><%= student.getUserName() %>
+                </td>
                 <td><%= student.getFirstName() %>
                 </td>
+
                 <td><%= student.getLastName() %>
                 </td>
                 <td><%= student.getGroup().getName() %>
