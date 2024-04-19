@@ -51,11 +51,14 @@ public class MyFilter implements Filter {
 
                 session.setAttribute("currentUser", student);
                 filterChain.doFilter(servletRequest, servletResponse);
+                return;
+            }else {
+                resp.sendRedirect("/404");
+                return;
             }
+
         }
-        System.out.println("XAtolik");
-        resp.sendRedirect("/404");
-//        filterChain.doFilter(req, servletResponse);
+        filterChain.doFilter(req, servletResponse);
 
     }
 }
