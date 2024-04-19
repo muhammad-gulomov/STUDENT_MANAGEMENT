@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import uz.muhammadtrying.run_out_of_names.entity.Group;
 import uz.muhammadtrying.run_out_of_names.repos.GroupRepo;
+import uz.muhammadtrying.run_out_of_names.repos.StudentRepo;
 
 import java.io.IOException;
 
@@ -33,8 +34,13 @@ public class GroupServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Integer groupId = Integer.parseInt(req.getParameter("groupId"));
         GroupRepo groupRepo = new GroupRepo();
+        StudentRepo studentRepo = new StudentRepo();
+
+        Integer groupId = Integer.parseInt(req.getParameter("groupId"));
+
+        studentRepo.deleteByGroupId(groupId);
+
         Group group = groupRepo.findById(groupId);
         groupRepo.deleteById(group.getId());
         resp.sendRedirect("http://localhost:8080/group_delete.jsp");

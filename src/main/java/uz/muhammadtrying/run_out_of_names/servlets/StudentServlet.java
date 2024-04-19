@@ -33,45 +33,50 @@ public class StudentServlet extends HttpServlet {
         String cameFrom = req.getParameter("cameFrom");
         GroupRepo groupRepo = new GroupRepo();
         StudentRepo studentRepo = new StudentRepo();
-        if (cameFrom.equals("http://localhost:8080/student_create.jsp")) {
-            String firstName = req.getParameter("firstName");
-            String lastName = req.getParameter("lastName");
-            Integer companyId = Integer.valueOf(req.getParameter("groupId"));
 
-            Student student = Student.builder()
-                    .firstName(firstName)
-                    .lastName(lastName)
-                    .build();
-            Group group = groupRepo.findById(companyId);
-            student.setGroup(group);
-            studentRepo.save(student);
-            resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
-        } else if (cameFrom.equals("/index.jsp")) {
-            String search = req.getParameter("search");
+        switch (cameFrom) {
+            case "/student_create.jsp" -> {
+                String firstName = req.getParameter("firstName");
+                String lastName = req.getParameter("lastName");
+                Integer companyId = Integer.valueOf(req.getParameter("groupId"));
 
-            List<Student> students = studentRepo.findAll();
+                Student student = Student.builder()
+                        .firstName(firstName)
+                        .lastName(lastName)
+                        .build();
+                Group group = groupRepo.findById(companyId);
+                student.setGroup(group);
+                studentRepo.save(student);
+                resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
+            }
+            case "/index.jsp" -> {
+                String search = req.getParameter("search");
 
-            List<Student> searchedStudents = students.stream()
-                    .filter(item -> item.getFirstName().toLowerCase().contains(search.toLowerCase()) || item.getLastName()
-                            .contains(search)).toList();
+                List<Student> students = studentRepo.findAll();
 
-            HttpSession session = req.getSession();
-            session.setAttribute("students", searchedStudents);
-            session.setAttribute("search", search);
-            resp.sendRedirect(cameFrom);
-        } else if (cameFrom.equals("/student_update.jsp")) {
-            Integer studentId = Integer.parseInt(req.getParameter("studentId"));
-            String firstName = req.getParameter("firstName");
-            String lastName = req.getParameter("lastName");
-            Integer groupId = Integer.valueOf(req.getParameter("groupId"));
+                List<Student> searchedStudents = students.stream()
+                        .filter(item -> item.getFirstName().toLowerCase().contains(search.toLowerCase()) || item.getLastName()
+                                .contains(search)).toList();
 
-            Group group = groupRepo.findById(groupId);
-            studentRepo.begin();
-            Student student = studentRepo.findById(studentId);
-            student.setFirstName(firstName);
-            student.setLastName(lastName);
-            student.setGroup(group);
-            resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
+                HttpSession session = req.getSession();
+                session.setAttribute("students", searchedStudents);
+                session.setAttribute("search", search);
+                resp.sendRedirect(cameFrom);
+            }
+            case "/student_update.jsp" -> {
+                Integer studentId = Integer.parseInt(req.getParameter("studentId"));
+                String firstName = req.getParameter("firstName");
+                String lastName = req.getParameter("lastName");
+                Integer groupId = Integer.valueOf(req.getParameter("groupId"));
+
+                Group group = groupRepo.findById(groupId);
+                Student student = studentRepo.findById(studentId);
+
+                student.setFirstName(firstName);
+                student.setLastName(lastName);
+                student.setGroup(group);
+                resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
+            }
         }
     }
 }

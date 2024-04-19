@@ -21,7 +21,7 @@
 <div class="container">
     <h1 class="mt-4">Create User</h1>
     <form action="student/servlet" method="post">
-        <input name="cameFrom" type="hidden" value="http://localhost:8080/student_create.jsp">
+        <input name="cameFrom" type="hidden" value="/student_create.jsp">
         <div class="form-group">
             <label for="firstName">First Name:</label>
             <input type="text" class="form-control" id="firstName" name="firstName">

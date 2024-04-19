@@ -1,12 +1,14 @@
 package uz.muhammadtrying.run_out_of_names.repos;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import uz.muhammadtrying.run_out_of_names.entity.Student;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
+import static uz.muhammadtrying.run_out_of_names.config.MyListener.entityManagerFactory;
 
 public class StudentRepo extends BaseRepo<Student, Integer> {
 
@@ -14,7 +16,7 @@ public class StudentRepo extends BaseRepo<Student, Integer> {
         return findAll().stream().filter(item -> item.getUserName().equals(username)).findFirst();
     }
 
-    public  Optional<Student> getUserByCookie(HttpServletRequest request) {
+    public Optional<Student> getUserByCookie(HttpServletRequest request) {
         if (request.getCookies() == null) {
             return Optional.empty();
         }
@@ -27,11 +29,13 @@ public class StudentRepo extends BaseRepo<Student, Integer> {
         return Optional.empty();
     }
 
-    private  Optional<Student> findById(int id) {
-        Optional<Student> first = findAll().stream().filter(item -> {
-            return item.getId().equals(id);
-        }).findFirst();
-        return first;
+    private Optional<Student> findById(int id) {
+        return findAll().stream().filter(item -> item.getId().equals(id)).findFirst();
     }
 
+    public void deleteByGroupId(Integer groupId) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        Query nativeQuery = entityManager.createNativeQuery("delete from student where group_id = ?", Student.class);
+        nativeQuery.setParameter(1, groupId);
+    }
 }

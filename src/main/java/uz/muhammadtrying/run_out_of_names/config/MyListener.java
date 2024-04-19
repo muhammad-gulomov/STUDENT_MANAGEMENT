@@ -14,11 +14,7 @@ public class MyListener implements ServletContextListener {
     public static EntityManagerFactory entityManagerFactory;
     public static EntityManager entityManager;
 
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
-        entityManagerFactory = Persistence.createEntityManagerFactory("default");
-        entityManager = entityManagerFactory.createEntityManager();
-
+    private static void init() {
         entityManager.getTransaction().begin();
         Group group = Group.builder()
                 .name("G35")
@@ -33,6 +29,14 @@ public class MyListener implements ServletContextListener {
                 .build();
         entityManager.persist(student);
         entityManager.getTransaction().commit();
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        entityManagerFactory = Persistence.createEntityManagerFactory("default");
+        entityManager = entityManagerFactory.createEntityManager();
+
+//        init();
         ServletContextListener.super.contextInitialized(sce);
     }
 }
