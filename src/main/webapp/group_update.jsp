@@ -1,4 +1,5 @@
-<%--
+<%@ page import="uz.muhammadtrying.run_out_of_names.repos.GroupRepo" %>
+<%@ page import="uz.muhammadtrying.run_out_of_names.entity.Group" %><%--
   Created by IntelliJ IDEA.
   User: muhammad
   Date: 19/04/24
@@ -8,20 +9,25 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Creating group</title>
+    <title>Updating group</title>
     <link rel="stylesheet" href="static/bootstrap.min.css">
 </head>
 <body>
+<%
+    Integer groupId = Integer.parseInt(request.getParameter("groupId"));
+    GroupRepo groupRepo = new GroupRepo();
+    Group group = groupRepo.findById(groupId);
+%>
 <div class="container">
-    <h1 class="mt-4">Create Group</h1>
-    <form action="group/servlet" method="post">
-        <input name="cameFrom" type="hidden" value="/group_create.jsp">
+    <h1 class="mt-4">Update Group</h1>
+    <form action="group/servlet?groupId=<%=group.getId()%>" method="post">
+        <input type="hidden" name="cameFrom" value="/group_update.jsp">
         <div class="form-group">
             <label for="groupName">Group Name:</label>
-            <input type="text" class="form-control" id="groupName" name="groupName">
+            <input value="<%=group.getName()%>" type="text" class="form-control" id="groupName" name="groupName">
         </div>
 
-        <button type="submit" class="btn btn-primary">Create Group</button>
+        <button type="submit" class="btn btn-primary">Update Group</button>
     </form>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

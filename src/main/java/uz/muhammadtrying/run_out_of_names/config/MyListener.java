@@ -6,6 +6,8 @@ import jakarta.persistence.Persistence;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import uz.muhammadtrying.run_out_of_names.entity.Group;
+import uz.muhammadtrying.run_out_of_names.entity.Student;
 
 @WebListener
 public class MyListener implements ServletContextListener {
@@ -16,6 +18,21 @@ public class MyListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         entityManagerFactory = Persistence.createEntityManagerFactory("default");
         entityManager = entityManagerFactory.createEntityManager();
+
+        entityManager.getTransaction().begin();
+        Group group = Group.builder()
+                .name("G35")
+                .build();
+        entityManager.persist(group);
+        Student student = Student.builder()
+                .firstName("Muhammad")
+                .lastName("G'ulomov")
+                .userName("a")
+                .password("1")
+                .group(group)
+                .build();
+        entityManager.persist(student);
+        entityManager.getTransaction().commit();
         ServletContextListener.super.contextInitialized(sce);
     }
 }

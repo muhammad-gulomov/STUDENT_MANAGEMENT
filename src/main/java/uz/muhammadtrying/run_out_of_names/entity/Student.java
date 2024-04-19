@@ -21,11 +21,14 @@ public class Student extends BaseEntity {
 
     @ManyToOne
     private Group group;
-
     @Builder
-    public Student(Integer id, String firstName, String lastName) {
+
+    public Student(Integer id, String firstName, String lastName, String userName, String password, Group group) {
         super(id);
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
+        this.group = group;
     }
 }

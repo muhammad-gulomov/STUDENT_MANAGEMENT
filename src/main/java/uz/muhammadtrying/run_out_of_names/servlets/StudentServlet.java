@@ -64,10 +64,12 @@ public class StudentServlet extends HttpServlet {
             String firstName = req.getParameter("firstName");
             String lastName = req.getParameter("lastName");
             Integer groupId = Integer.valueOf(req.getParameter("groupId"));
+
+            Group group = groupRepo.findById(groupId);
+            studentRepo.begin();
             Student student = studentRepo.findById(studentId);
             student.setFirstName(firstName);
             student.setLastName(lastName);
-            Group group = groupRepo.findById(groupId);
             student.setGroup(group);
             resp.sendRedirect("http://localhost:8080/studentcrud.jsp");
         }

@@ -1,32 +1,29 @@
 <%@ page import="java.util.List" %>
+<%@ page import="uz.muhammadtrying.run_out_of_names.entity.Student" %>
+<%@ page import="uz.muhammadtrying.run_out_of_names.repos.StudentRepo" %>
 <%@ page import="uz.muhammadtrying.run_out_of_names.repos.GroupRepo" %>
 <%@ page import="uz.muhammadtrying.run_out_of_names.entity.Group" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User</title>
+    <title>Group</title>
     <link rel="stylesheet" href="static/bootstrap.min.css">
     <style>
         .main-content {
             padding-top: 20px;
         }
-
     </style>
 </head>
 <body>
 <%
-
     GroupRepo groupRepo = new GroupRepo();
     List<Group> groups = groupRepo.findAll();
 %>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-10 main-content">
-            <h1>Group</h1>
-            <div style="font-size: larger"><a href="http://localhost:8080/admin.jsp">HOMEPAGE</a>
-                <a class="offset-1" style="font-size: large" href="group_create.jsp">Create</a>
-                <a class="offset-1" style="font-size: large" href="group_delete.jsp">Delete</a>
-            </div>
+            <h1>Delete</h1>
+            <div style="font-size: larger"><a href="http://localhost:8080/groupcrud.jsp">HOMEPAGE</a></div>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -36,19 +33,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <%
-                    for (Group group : groups) {%>
+                <% for (Group group : groups) { %>
                 <tr>
-                    <td>
-                        <%=group.getId()%>
+                    <td><%= group.getId() %>
+                    </td>
+                    <td><%= group.getName() %>
                     </td>
                     <td>
-                        <%=group.getName()%>
-                    </td>
-                    <td>
-                        <a href="group_update.jsp?groupId=<%=group.getId()%>">
-                            Update🔄
-                        </a>
+                        <form action="group/servlet" method="get">
+                            <input type="hidden" name="groupId" value="<%= group.getId() %>">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 <% } %>
