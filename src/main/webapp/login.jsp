@@ -20,7 +20,7 @@
                 Log in
             </div>
             <div class="card-body">
-                <form action="auth/login" method="get">
+                <form action="auth/login" method="post">
                     <input type="hidden" value="/login.jsp">
                     <div>
                         <input type="text" name="username" placeholder="Username..." class="form-control mt-2">

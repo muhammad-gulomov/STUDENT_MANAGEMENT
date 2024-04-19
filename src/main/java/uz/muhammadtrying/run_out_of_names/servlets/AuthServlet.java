@@ -13,8 +13,9 @@ import java.util.Optional;
 @WebServlet(name = "auth", value = "/auth/login")
 public class AuthServlet extends HttpServlet {
     StudentRepo studentRepo = new StudentRepo();
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String rememberMe = req.getParameter("rememberMe");
@@ -24,20 +25,20 @@ public class AuthServlet extends HttpServlet {
             Student student = optionalStudent.get();
             if (student.getPassword().equals(password)) {
                 HttpSession session = req.getSession();
-                session.setAttribute("currentUser",student);
+                session.setAttribute("currentUser", student);
 
                 if (Objects.equals(rememberMe, "on")) {
-                    Cookie cookie =new Cookie(
-                    "currentUser",student.getId().toString()
+                    Cookie cookie = new Cookie(
+                            "currentUser", student.getId().toString()
                     );
 
                     cookie.setPath("/");
                     cookie.setSecure(false);
                     cookie.setMaxAge(60 * 60);
                     resp.addCookie(cookie);
-                    resp.sendRedirect("/");
-                    return ;
                 }
+                resp.sendRedirect("/");
+                return;
             }
         }
         resp.sendRedirect("/login.jsp");

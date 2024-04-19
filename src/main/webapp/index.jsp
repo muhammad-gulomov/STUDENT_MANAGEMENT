@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="uz.muhammadtrying.run_out_of_names.entity.Student" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -49,8 +51,8 @@
     <h1>Homepage</h1>
 
     <%
-        if (currentUserObject != null) {
-            Student currentUser = (Student) currentUserObject;
+        if () {
+
     %>
     <div class="dropdown float-right">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
